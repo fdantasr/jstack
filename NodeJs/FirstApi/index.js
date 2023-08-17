@@ -1,24 +1,26 @@
 const http = require('http');
-const url =  require('url');
+const { URL } =  require('url');
 const routes = require('./routes');
 
 // Create a server object with an anonymous function
 const server = http.createServer((request, response) => {
-  const parsedUrl = url.parse(request.url, true);
+  const parsedUrl = new URL(`http://localhost:3000${request.url}`); //Cria uma nova instância de URL com o endereço da requisição
 
-  console.log(`Request method:, ${request.method} | Endpoint: ${request.url}`);
+
+  console.log(`Request method:, ${request.method} | Endpoint: ${parsedUrl.pathname}}`);
 
   //Recebe a rota que está iterando passando o endpoint e o método
   const route = routes.find((routeObj) => (
  
-    routeObj.endpoint === request.url && routeObj.method === request.method
+    routeObj.endpoint === parsedUrl.pathname && routeObj.method === request.method
   ));
 
   if (route) {
+    request.query = Object.fromEntries(parsedUrl.searchParams); //Transforma o objeto em um array de arrays e depois em um objeto novamente
     route.handler(request, response);
   } else {
     response.writeHead(404, { 'Content-Type': 'text/html' });
-    response.end(`Cannot ${request.method} ${request.url}`);
+    response.end(`Cannot ${request.method} ${parsedUrl.pathname}`);
   }
 
 });
