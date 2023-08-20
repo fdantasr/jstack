@@ -13,7 +13,7 @@ module.exports = {
 
       return a.id > b.id ? 1 : -1;
     });
-    response.snd(200, sortedUsers);
+    response.send(200, sortedUsers);
   },
   getUserById(request, response) {
     const { id } = request.params;
@@ -22,6 +22,19 @@ module.exports = {
     if (!user) {
       return response.send(400, { error: 'User not found' });
     }
-    response.send(200, user); 
+    response.send(200, user);
+  },
+
+  createUser(request, response) {
+    const { body } = request;
+
+    const lastUserId = users[users.length - 1].id; //Pega o último id da lista de usuários
+    const newUser = {
+      id: lastUserId + 1,
+      name: body.name,
+    };
+    users.push(newUser);
+
+    response.send(200, newUser);
   },
 };
