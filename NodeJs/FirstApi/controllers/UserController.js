@@ -1,5 +1,4 @@
 /* Create, Read, Update, Delete */
-
 const users = require('../mocks/users');
 const { sort } = require('../routes');
 
@@ -23,6 +22,6 @@ module.exports = {
     if (!user) {
       return response.send(400, { error: 'User not found' });
     }
-    response.send(200, user);
+    response.send(200, user); 
   },
 };
