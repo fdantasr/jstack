@@ -1,12 +1,5 @@
 /* Create, Read, Update, Delete */
 
-/*shorthand method syntax at ES6.
-The old way to do this would be:
-const userController = {
-  listUsers: function () {
-    // ...
-  },
-*/
 const users = require('../mocks/users');
 const { sort } = require('../routes');
 
@@ -29,8 +22,7 @@ module.exports = {
 
     if (!user) {
       return response.send(400, { error: 'User not found' });
-    } else {
-      response.send(200, user);
     }
+    response.send(200, user);
   },
 };
