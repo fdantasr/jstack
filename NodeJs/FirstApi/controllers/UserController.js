@@ -1,5 +1,5 @@
 /* Create, Read, Update, Delete */
-const users = require('../mocks/users');
+let users = require('../mocks/users');
 const { sort } = require('../routes');
 
 module.exports = {
@@ -36,5 +36,38 @@ module.exports = {
     users.push(newUser);
 
     response.send(200, newUser);
+  },
+
+  updateUser(request, response) {
+    let { id } = request.params;
+    const { name } = request.body;
+
+    id = Number(id);
+
+    const userExists = users.find((user) => user.id === Number(id));
+
+    if (!userExists) {
+      return response.send(400, { error: 'User not found' });
+    }
+
+    users = users.map((user) => {
+      if (user.id === id) {
+        return {
+          ...user,
+          name,
+        };
+      }
+      return user;
+    });
+    response.send(200, { id, name });
+  },
+
+  deleteUser(request, response) {
+    let { id } = request.params;
+    id = Number(id);
+
+    users = users.filter((user) => user.id !== id);
+
+    response.send(200, { deleted: true });
   },
 };
