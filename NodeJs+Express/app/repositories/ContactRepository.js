@@ -1,15 +1,20 @@
-const { uuid } = require('uuid');
+/* eslint-disable import/no-extraneous-dependencies */
+
+const { uuid } = require('uuidv4');
 
 const contacts = [
-  { id: uuid, name: 'John Doe', email: 'John' },
-  { id: uuid, name: 'Jane Doe', email: 'Jane' },
-  { id: uuid, name: 'Janice Doe', email: 'Janice' },
-  { id: uuid, name: 'Jules Doe', email: 'Jules' },
-  { id: uuid, name: 'Jasper Doe', email: 'Jasper' },
+  {
+    id: uuid(),
+    name: 'Felipe Dantas',
+    email: 'dantas.contatod@gmail.com',
+    phone: '999999999',
+  },
 ];
 
 class ContactRepository {
-  findAll() {}
+  findAll() {
+    return contacts;
+  }
 }
 
 module.exports = new ContactRepository();
