@@ -36,8 +36,32 @@ class ContactRepository {
     return new Promise((resolve) => {
       contacts = contacts.filter(
         // eslint-disable-next-line function-paren-newline
-        (contactselected) => contactselected.id !== id);
+        (contactselected) => contactselected.id !== id,
+      );
       resolve();
+    });
+  }
+
+  findByEmail(email) {
+    return new Promise((resolve) => {
+      resolve(
+        contacts.find((contactselected) => contactselected.email === email),
+      );
+    });
+  }
+
+  create({ name, email, phone, category_id }) {
+    return new Promise((resolve) => {
+      const newContact = {
+        id: v4(),
+        name,
+        email,
+        phone,
+        category_id,
+      };
+
+      contacts.push(newContact);
+      resolve(newContact);
     });
   }
 }
