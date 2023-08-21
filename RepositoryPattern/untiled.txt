@@ -4,7 +4,11 @@ Data Source tradução: Fonte de Dados
 
 Repository Pattern: Layer (camada) de abstração de acesso ao Data Source
 
-Caso eu precise mudar o meu Data Source, eu não preciso mudar o meu Controller, pois o Repository é quem faz a ponte entre o Controller e o Data Source.
+-> Caso eu precise mudar o meu Data Source, eu não preciso mudar o meu Controller, pois o Repository é quem faz a ponte entre o Controller e o Data Source.
 
 Controller <-> Data Source 
 Controller <-> Repository <-> Data Source
+
+Resumo: O Repository Pattern é um padrão de projeto que permite abstrair o acesso ao Data Source, ou seja, o Controller não precisa saber como acessar o Data Source, pois o Repository faz isso para ele.
+
+Este padrão será usado no decorrer dos estudos para implementar as API´s criadas no módulo Node + Express.
