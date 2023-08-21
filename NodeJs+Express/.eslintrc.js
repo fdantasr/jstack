@@ -21,5 +21,6 @@ module.exports = {
   rules: {
     quotes: ['error', 'single'],
     'class-methods-use-this': 'off',
+    'consistent-return': 'off',
   },
 };
