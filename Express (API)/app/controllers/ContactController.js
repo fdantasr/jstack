@@ -26,8 +26,16 @@ class ContactController {
     // Editar um contato
   }
 
-  delete() {
+  async delete(request, response) {
     // Remover um contato
+    const { id } = request.params;
+    const contact = await ContactRepository.findById(id);
+    if (!contact) {
+      return response.status(404).json({ error: 'Contact not found, try another { id }' });
+    }
+    await ContactRepository.deleteById(id);
+    // 204: No content
+    response.sendStatus(204);
   }
 }
 
