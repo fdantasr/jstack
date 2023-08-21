@@ -28,7 +28,7 @@ class ContactController {
     if (contactExists) {
       return response
         .status(400)
-        .json({ error: 'This Email is alredy been taken' });
+        .json({ error: 'This Email is alredy in use' });
     }
     const contact = await ContactRepository.create({
       name,
@@ -40,8 +40,33 @@ class ContactController {
     response.json(contact);
   }
 
-  update() {
-    // Editar um contato
+  async update(request, response) {
+    // Atualizar um contato
+    const { id } = request.params;
+    const { name, email, phone, category_id } = request.body;
+    const contactExists = await ContactRepository.findById(id);
+    if (!contactExists) {
+      return response.status(404).json({ error: 'Contact not found' });
+    }
+
+    if (!name) {
+      return response.status(400).json({ error: 'Name is required' });
+    }
+
+    const emailExists = await ContactRepository.findByEmail(email);
+    if (emailExists && emailExists.id !== id) {
+      return response
+        .status(400)
+        .json({ error: 'This Email is alredy in use' });
+    }
+
+    const contact = await ContactRepository.update(id, {
+      name,
+      email,
+      phone,
+      category_id,
+    });
+    response.json(contact);
   }
 
   async delete(request, response) {
