@@ -5,7 +5,14 @@
   "main": "src/index.js",
   "author": "Felipe Dantas",
   "license": "MIT",
+  "scripts": {
+    "start": "nodemon src/index.js",
+    "dev": "nodemon src/index.js"
+  },
   "dependencies": {
     "express": "^4.18.2"
+  },
+  "devDependencies": {
+    "nodemon": "^3.0.1"
   }
 }
